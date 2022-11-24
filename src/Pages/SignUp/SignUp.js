@@ -7,7 +7,7 @@ import { AuthContext } from '../../Context/ContextProvider';
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate()
-    const { createUser } = useContext(AuthContext)
+    const { createUser, userName } = useContext(AuthContext)
     const [error, setError] = useState('')
 
     const handleSignUp = (data) => {
@@ -18,6 +18,16 @@ const SignUp = () => {
                 toast.success('User Create Successfully');
                 navigate('/')
                 console.log(user);
+
+                const userInfo = {
+                    displayName: data.name
+                }
+
+                userName(userInfo)
+                    .then(() => {
+                        saveUser(data.name, data.email)
+                    })
+                    .catch(err => console.error(err))
             })
             .catch(error => {
                 const errorCode = error.code;
@@ -25,6 +35,22 @@ const SignUp = () => {
                 setError(errorMessage)
             })
     }
+    const saveUser = (name, email) => {
+        const users = { name, email }
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(users)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+    }
+
+
     return (
         <div className='grid md:grid-cols-1 lg:grid-cols-2 gap-8'>
             <div>
