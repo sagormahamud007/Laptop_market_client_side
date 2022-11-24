@@ -28,7 +28,7 @@ const SignUp = () => {
     return (
         <div className='grid md:grid-cols-1 lg:grid-cols-2 gap-8'>
             <div>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTALnR7qVVo8v6rcldqP7jLINiXx37ILE40zw&usqp=CAU" alt="" />
+                <img src="https://cdni.iconscout.com/illustration/premium/thumb/user-account-sign-up-4489360-3723267.png" alt="" />
             </div>
             <form className='ml-10 mt-14' onSubmit={handleSubmit(handleSignUp)}>
                 <div className="form-control">
