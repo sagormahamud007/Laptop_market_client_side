@@ -7,11 +7,18 @@ import { AuthContext } from '../../Context/ContextProvider';
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate()
-    const { createUser, userName } = useContext(AuthContext)
+    const { createUser, userName, googleSign } = useContext(AuthContext)
     const [error, setError] = useState('')
 
     const handleSignUp = (data) => {
-        const spacify = data.selected;
+        const name = data.name;
+        const email = data.email;
+        const option = data.selected
+        const users = {
+            name,
+            email,
+            option
+        }
 
         createUser(data.email, data.password)
             .then(result => {
@@ -23,10 +30,8 @@ const SignUp = () => {
                 const userInfo = {
                     displayName: data.name
                 }
-
                 userName(userInfo)
                     .then(() => {
-                        saveUser(data.name, data.email)
                     })
                     .catch(err => console.error(err))
             })
@@ -35,9 +40,8 @@ const SignUp = () => {
                 const errorMessage = error.message;
                 setError(errorMessage)
             })
-    }
-    const saveUser = (name, email) => {
-        const users = { name, email }
+
+
         fetch('http://localhost:5000/users', {
             method: 'POST',
             headers: {
@@ -50,6 +54,14 @@ const SignUp = () => {
                 console.log(data);
             })
     }
+    const googleLogin = () => {
+        googleSign()
+            .then(result => {
+                navigate('/')
+            })
+            .catch(err => console.error(err))
+    }
+
     return (
         <div className='grid md:grid-cols-1 lg:grid-cols-2 gap-8'>
             <div>
@@ -94,11 +106,12 @@ const SignUp = () => {
                             <option>Buyer</option>
                         </select>
                     </div>
+
                     <p className='mt-2'>Already have an account?
                         <Link className='text-blue-400 ml-2 underline' to='/signIn'>Please login</Link></p>
-                    <input className='btn btn-accent w-full max-w-xs mt-5' value='Sign Up' type="submit" />
+                    <input className='btn btn-accent text-black w-full max-w-xs mt-5' value='Sign Up' type="submit" />
                 </form>
-                <button className='btn  w-full max-w-xs mt-5 ml-10'>CONTINUE WITH GOOGLE</button>
+                <button onClick={googleLogin} className='btn btn-accent text-black  w-full max-w-xs mt-5 ml-10'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );

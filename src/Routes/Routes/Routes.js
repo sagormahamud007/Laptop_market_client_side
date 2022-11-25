@@ -4,6 +4,7 @@ import AllSellers from "../../DashboardLayout/All Sellers,/AllSellers";
 import DashbordLayout from "../../DashboardLayout/DashbordLayout";
 import MyOrders from "../../DashboardLayout/My orders/MyOrders";
 import Main from "../../Layout/Main";
+import ErrorPage from "../../Pages/404Page/ErrorPage";
 import AllProducts from "../../Pages/AllProducts/AllProducts";
 import Blog from "../../Pages/Blog/Blog";
 import Home from "../../Pages/Home/Home/Home";
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>
+            },
+            {
+                path: '/*',
+                element: <ErrorPage></ErrorPage>
             },
             {
                 path: '/signIn',
@@ -45,6 +50,10 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard',
                 element: <MyOrders></MyOrders>
+            },
+            {
+                path: '/dashboard/*',
+                element: <ErrorPage></ErrorPage>
             },
             {
                 path: '/dashboard/addProduct',
