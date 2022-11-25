@@ -1,9 +1,50 @@
-import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../Context/ContextProvider';
 
 const AllSellers = () => {
+    const { user } = useContext(AuthContext)
+    const { data: sellers = [], isLoading } = useQuery({
+        queryKey: ['seller', user?.email],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/seller?email=${user?.email}`, {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('Access-token')}`
+                }
+            });
+            const data = await res.json()
+            return data
+        }
+    })
+    if (isLoading) {
+        return <p className="text-3xl">Loading...</p>
+    }
     return (
-        <div>
-
+        <div className="overflow-x-auto">
+            <table className="table w-full">
+                <thead>
+                    <tr>
+                        <th>serial</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        sellers?.length &&
+                        sellers.map((seller, i) => (
+                            <tr key={seller._id}>
+                                <th>{i + 1}</th>
+                                <th> {seller.name} </th>
+                                <th>{seller.email}</th>
+                                <th><button className='btn btn-sm btn-primary'>Verify</button></th>
+                                <th><button className='btn btn-sm btn-warning'>Delete</button></th>
+                            </tr>
+                        ))}
+                </tbody>
+            </table>
         </div>
     );
 };

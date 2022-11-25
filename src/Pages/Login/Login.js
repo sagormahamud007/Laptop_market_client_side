@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../Context/ContextProvider';
 
@@ -9,14 +9,33 @@ const Login = () => {
     const [error, setError] = useState('')
     const { userSignIn } = useContext(AuthContext)
     const navigate = useNavigate()
+    const location = useLocation()
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const from = location.state?.from?.pathname || '/';
 
     const handleSignInUser = (data) => {
         userSignIn(data.email, data.password)
             .then(result => {
                 const user = result.user;
-                toast.success('Login successfully')
-                navigate('/')
+                const currentUser = {
+                    email: user.email
+                }
+
+                //get jwt token
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                        localStorage.setItem('Access-token', data.token)
+                        toast.success('Login successfully')
+                        navigate(from, { replace: true });
+                    })
             })
             .catch(error => {
                 const errorCode = error.code;

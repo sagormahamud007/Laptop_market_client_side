@@ -1,59 +1,57 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../Context/ContextProvider';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate()
+    const location = useLocation()
     const { createUser, userName, googleSign } = useContext(AuthContext)
     const [error, setError] = useState('')
+    const from = location.state?.from?.pathname || '/';
 
     const handleSignUp = (data) => {
-        const name = data.name;
-        const email = data.email;
-        const option = data.selected
-        const users = {
-            name,
-            email,
-            option
-        }
-
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
-                toast.success('User Create Successfully');
-                navigate('/')
-                console.log(user);
-
                 const userInfo = {
                     displayName: data.name
                 }
                 userName(userInfo)
                     .then(() => {
+                        storeUserDB(data.name, data.email, data.role)
                     })
                     .catch(err => console.error(err))
             })
+
             .catch(error => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 setError(errorMessage)
             })
+    }
 
-
-        fetch('http://localhost:5000/users', {
+    const storeUserDB = (name, email, role) => {
+        const user = { name, email, role };
+        fetch(`http://localhost:5000/users`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(users)
+            body: JSON.stringify(user)
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                if (data.acknowledged) {
+                    navigate(from, { replace: true });
+                    toast.success('User Create Successfully');
+                }
+
             })
     }
+
     const googleLogin = () => {
         googleSign()
             .then(result => {
@@ -99,11 +97,11 @@ const SignUp = () => {
                         <span>{errors.password && <p className='text-red-600'>{errors.password?.message}</p>}</span>
                     </div>
 
-                    <label className="label"><span className="label-text">Choose your option</span></label>
-                    <div {...register("selected")} className="form-control w-full max-w-xs">
-                        <select className="select select-bordered">
-                            <option>Seller</option>
-                            <option>Buyer</option>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"> <span className="label-text">Select Type Of Account</span></label>
+                        <select name="role" {...register("role", { required: true })} className="select select-bordered w-full">
+                            <option value='bayer'> bayer </option>
+                            <option value='seller'> seller </option>
                         </select>
                     </div>
 

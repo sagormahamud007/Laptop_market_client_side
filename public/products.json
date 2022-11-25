@@ -16,6 +16,22 @@
         "userEmail": "wazedali@gmail.com"
     },
     {
+        "product_name": "Lenovo Laptop",
+        "image": "https://ibb.co/1MytSwy",
+        "product_price": "60,000",
+        "marketPrice": "40,000",
+        "mobile": "01751473051",
+        "purchase_year": "2021",
+        "condition_type": "Good Quality",
+        "brand_name": "Lenovo",
+        "display": "Display: 14 FHD (1920x1080)",
+        "title": "LENOVO IDEAPAD Slim 3 15IIL05 15.6 INCH FULL HD DISPLAY INTEL I3 10TH GEN 4GB RAM 256GB SSD LAPTOP",
+        "productDetails": "Processor: Intel Core i3-1115G4 (6M Cache, 3.00GHzup to 4.10 GHz)RAM: 8GB DDR4 3200MHz, Storage: 512GB SSD",
+        "location": "Gazipur-2,Dhaka",
+        "time": "dec 20,2022 06:20",
+        "userEmail": "wazedali@gmail.com"
+    },
+    {
         "product_name": "Hp Laptop",
         "image": "https://ibb.co/XVzC9B4",
         "product_price": "45,000",
@@ -32,6 +48,22 @@
         "userEmail": "wazedali@gmail.com"
     },
     {
+        "product_name": "Hp Laptop",
+        "image": "https://ibb.co/MfZHXQ2",
+        "product_price": "40,000",
+        "marketPrice": "65,000",
+        "mobile": "01751473051",
+        "purchase_year": "2020",
+        "condition_type": "Good Quality",
+        "brand_name": "Hp",
+        "display": "Display: 15.6 HD (1366 x 768)",
+        "title": "HP 15s-fq5487TU Core i3 12th Gen 15.6 FHD Laptop",
+        "productDetails": "Processor: Intel Core i3-1215U (10M Cache, up to 4.40 GHz) RAM: 8GB RAM, Storage: 256GB SSD",
+        "location": "Gazipur-2,Dhaka",
+        "time": "jan 15,2022 08:20",
+        "userEmail": "wazedali@gmail.com"
+    },
+    {
         "product_name": "Toshiba Laptop",
         "image": "https://ibb.co/jwN6Xks",
         "product_price": "50,000",
@@ -45,6 +77,22 @@
         "productDetails": "Processor: Intel Celeron 5205U (2M Cache, 1.90 GHz)  RAM: 4GB 3200MHz. Storage: 128GB SSD",
         "location": "Gazipur-2,Dhaka",
         "time": "feb 10,2022 07:20",
+        "userEmail": "wazedali@gmail.com"
+    },
+    {
+        "product_name": "Toshiba Laptop",
+        "image": "https://www.bdstall.com/asset/product-image/big_165668.jpg",
+        "product_price": "60,000",
+        "marketPrice": "85,000",
+        "mobile": "01751473051",
+        "purchase_year": "2021",
+        "condition_type": "Very good",
+        "brand_name": "Toshiba",
+        "display": "13.3 HD LED display",
+        "title": "Toshiba Portege Z30-C is equipped with a strong Core i5 6th generation",
+        "productDetails": " CPU and a 13.3 HD LED display. It also has 8GB of DDR3L SDRAM and 256GB of SSD storage. It comes with Intel HD graphics 520, as well as Wi-Fi, Bluetooth, and LAN.",
+        "location": "Gazipur-2,Dhaka",
+        "time": "april 05,2022 10:20",
         "userEmail": "wazedali@gmail.com"
     }
 ]
