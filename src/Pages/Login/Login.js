@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../Context/ContextProvider';
 
@@ -47,6 +47,8 @@ const Login = () => {
                     })} className="input input-bordered w-full max-w-xs" />
                     <span>{errors.password && <p className='text-red-600'>{errors.password?.message}</p>}</span>
                 </div>
+                <p className='mt-3'>Create new account
+                    <Link className='text-blue-500 ml-2 underline' to='/signUp'>Please Sign Up</Link></p>
                 <input className='btn btn-accent w-full max-w-xs mt-5' value='Sign In' type="submit" />
             </form>
         </div>
