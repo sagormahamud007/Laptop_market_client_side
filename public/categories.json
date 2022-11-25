@@ -1,0 +1,17 @@
+[
+    {
+        "category_name": "Lenovo Laptop",
+        "image": "https://www.startech.com.bd/image/cache/catalog/laptop/lenovo/v14/v14-g2-01-228x228.webp",
+        "brand_name": "Lenovo"
+    },
+    {
+        "category_name": "Hp Laptop",
+        "image": "https://www.startech.com.bd/image/cache/catalog/laptop/hp-laptop/hp-15s/hp-15s-spruce-blue-02-228x228.jpg",
+        "brand_name": "Hp"
+    },
+    {
+        "category_name": "Toshiba Laptop",
+        "image": "https://www.startech.com.bd/image/cache/catalog/laptop/toshiba/satellite-pro-c40-g-109/satellite-pro-c40-g-109-01-228x228.webp",
+        "brand_name": "Toshiba"
+    }
+]

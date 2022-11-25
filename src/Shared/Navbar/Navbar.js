@@ -11,7 +11,7 @@ const Navbar = () => {
         <li><Link to='/signup'>Sign Up</Link></li>
     </>
     return (
-        <div className='px-4'>
+        <div>
             <div className="navbar  bg-black">
                 <div className="navbar-start ">
                     <div className="dropdown">
