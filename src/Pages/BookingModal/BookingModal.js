@@ -1,77 +1,116 @@
 import React, { useContext } from 'react';
-import { format } from 'date-fns';
-import { AuthContext } from '../../../Context/ContextProvider';
-import toast from 'react-hot-toast';
-const BookingModal = ({ treatment, selectedDate, setTreatment, refetch, }) => {
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../Context/ContextProvider';
+
+
+const BookingModal = ({ modalInfo, setModalInfo }) => {
     const { user } = useContext(AuthContext)
-    const { slots, name: treatmentName, price } = treatment;
-    const date = format(selectedDate, 'PP')
+    const { product_name, product_price, brand_name } = modalInfo;
 
     const handleBooking = (event) => {
-        event.preventDefault()
+        event.preventDefault();
+        setModalInfo(null)
         const form = event.target;
         const name = form.name.value;
         const email = form.email.value;
         const phone = form.phone.value;
-        const slot = form.slot.value;
-        console.log(name, email, phone, slot);
+        const product_name = form.product_name.value;
+        const product_price = form.product_price.value;
+        const location = form.location.value;
 
-        const booking = {
-            appointmentDate: date,
-            treatment: treatmentName,
-            patient: name,
+        const productBooking = {
+            product_name,
+            product_price,
+            location,
+            name,
             email,
             phone,
-            slot,
-            price
+            brand_name
         }
-
         fetch('http://localhost:5000/bookings', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(booking)
+            body: JSON.stringify(productBooking)
         })
             .then(res => res.json())
             .then(data => {
                 if (data.acknowledged) {
-                    toast.success('booking confirmed')
-                    form.reset('')
-                    setTreatment(null)
-                    refetch()
+                    toast.success(`${product_name} is booked`)
                 }
 
             })
     }
+
     return (
-        <div>
-            <input type="checkbox" id="My-Booking" className="modal-toggle" />
+        <>
+            <input type="checkbox" id="productModalOpen" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box relative">
-                    <label htmlFor="My-Booking" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <h3 className="text-lg font-bold">{treatmentName}</h3>
-                    <form onSubmit={handleBooking} className='mt-10 grid grid-cols-1 gap-4'>
-                        <input type="text" name='date' disabled defaultValue={date} className="input input-bordered w-full" />
-
-                        <select name='slot' className="select w-full input-bordered">
-                            {
-
-                                slots.map((slot, i) => <option
-                                    key={i}
-                                    value={slot}>{slot}</option>)
-                            }
-                        </select>
-
-                        <input type="text" name='name' placeholder="Your name" defaultValue={user?.displayName} disabled className="input input-bordered w-full" />
-                        <input type="email" disabled defaultValue={user?.email} name='email' placeholder="E-mail Address" className="input input-bordered w-full" />
-                        <input type="number" placeholder="Your phone" name='phone' className="input input-bordered w-full" />
-                        <input disabled={slots.length === 0}
-                            className='w-full bg-accent py-3 text-white' type="submit" value="SUBMIT" />
+                    <label
+                        htmlFor="productModalOpen"
+                        className="btn btn-sm btn-circle absolute right-2 top-2"
+                    >
+                        ✕
+                    </label>
+                    <h3 className="text-lg font-bold text-center">Confirm Booking </h3>
+                    <form
+                        onSubmit={handleBooking}
+                        className="grid grid-cols-1 gap-3 mt-10"
+                    >
+                        <input
+                            name="product_name"
+                            defaultValue={product_name}
+                            type="text"
+                            disabled
+                            className="input w-full input-bordered"
+                        />
+                        <input
+                            name="product_price"
+                            defaultValue={product_price}
+                            type="text"
+                            disabled
+                            className="input w-full input-bordered"
+                        />
+                        <input
+                            name="name"
+                            defaultValue={user?.displayName}
+                            type="text"
+                            disabled
+                            className="input w-full input-bordered"
+                        />
+                        <input
+                            name="email"
+                            defaultValue={user?.email}
+                            type="email"
+                            disabled
+                            className="input w-full input-bordered"
+                        />
+                        <input
+                            name="phone"
+                            type="text"
+                            placeholder="Your Phone "
+                            className="input w-full input-bordered"
+                            required
+                        />
+                        <input
+                            name="location"
+                            type="text"
+                            placeholder="Location ?"
+                            className="input w-full input-bordered"
+                            required
+                        />
+                        <br />
+                        <input
+                            className="btn btn-accent w-full"
+                            type="submit"
+                            value="Submit"
+                        />
                     </form>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
