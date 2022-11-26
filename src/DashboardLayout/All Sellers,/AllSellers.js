@@ -32,15 +32,14 @@ const AllSellers = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        sellers?.length &&
+                    {sellers.length &&
                         sellers.map((seller, i) => (
                             <tr key={seller._id}>
                                 <th>{i + 1}</th>
                                 <th> {seller.name} </th>
                                 <th>{seller.email}</th>
-                                <th><button className='btn btn-sm btn-primary'>Verify</button></th>
-                                <th><button className='btn btn-sm btn-warning'>Delete</button></th>
+                                <th><button className='btn btn-sm btn-accent'>Verify</button></th>
+                                <th><button className='btn btn-sm btn-danger'>Delete</button></th>
                             </tr>
                         ))}
                 </tbody>
