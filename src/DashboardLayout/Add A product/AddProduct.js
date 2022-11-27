@@ -10,7 +10,7 @@ const AddProduct = () => {
     const { user } = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate()
-    const time = moment().format('111')
+    const time = moment().format('LLLL')
     const imgKey = process.env.REACT_APP_imgKey;
 
 
@@ -42,18 +42,18 @@ const AddProduct = () => {
                         time: time,
                         productDetails: data.productDetails,
                     }
-                    fetch(`http://localhost:5000/allproducts?email=${user?.email}`, {
+                    fetch(`http://localhost:5000/allProduct?email=${user?.email}`, {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
-                            authorization: `bearer ${localStorage.getItem('icmToken')}`
+                            authorization: `bearer ${localStorage.getItem('Access-token')}`
                         },
                         body: JSON.stringify(productData)
                     })
                         .then(res => res.json())
                         .then(result => {
                             console.log(result);
-                            toast.success('product add successfully');
+                            toast.success('Product add successfully');
                             navigate('/dashboard/myProduct')
                         })
                 }
