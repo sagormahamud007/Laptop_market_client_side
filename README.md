@@ -1,4 +1,14 @@
-# Getting Started with Create React App
+# Live :https://used-products-laptop-market.web.app/
+
+* In this project, some categories are shown first, if the user clicks on that category, if he is not logged in, he will be taken to the login page, and after logging in, the user can see those products.
+* I used this project React Router which makes it easy to move from one place to another.
+* In this project I have used authentication, through which user can login and register
+* After viewing the page, the user can book the product, after booking, the user will receive a confirmation message.
+* This project has a dashboard where users can add products, and the data of the seller, the data of the buyer, and the data of the user to be added are shown on the dashboard.
+* If you add it to the user dashboard, you will see that data category when you go to the router
+
+
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
