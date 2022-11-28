@@ -27,10 +27,11 @@ const BookingModal = ({ modalInfo, setModalInfo }) => {
             phone,
             brand_name
         }
-        fetch('http://localhost:5000/bookings', {
+        fetch('https://used-product-laptop-market-server.vercel.app/bookings', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('Access-token')}`
             },
             body: JSON.stringify(productBooking)
         })

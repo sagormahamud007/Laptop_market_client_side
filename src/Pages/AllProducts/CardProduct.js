@@ -2,6 +2,8 @@ import React from 'react';
 
 const CardProduct = ({ product, setModalInfo }) => {
     const { product_name, image, product_price, marketPrice, mobile, purchase_year, condition_type, brand_name, display, title, productDetails, location, time, userEmail } = product;
+
+
     return (
         <div className=" border pl-5 my-5 flex flex-col justify-start w-11/12 mx-auto md:justify-evently md:flex-row gap-10 ">
             <div className="left_side lg:w-[30%] md:w-[30%] m-5 md:m-0 lg:m-0">

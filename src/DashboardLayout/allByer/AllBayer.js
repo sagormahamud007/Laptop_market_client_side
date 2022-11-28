@@ -4,11 +4,10 @@ import { AuthContext } from '../../Context/ContextProvider';
 
 const AllBayer = () => {
     const { user } = useContext(AuthContext)
-
     const { data: buyers = [], isLoading } = useQuery({
         queryKey: ["bayer", user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/bayer?email=${user?.email}`, {
+            const res = await fetch(`https://used-product-laptop-market-server.vercel.app/bayer?email=${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('Access-token')}`
                 }

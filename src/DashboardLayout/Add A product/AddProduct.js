@@ -42,7 +42,7 @@ const AddProduct = () => {
                         time: time,
                         productDetails: data.productDetails,
                     }
-                    fetch(`http://localhost:5000/allProduct?email=${user?.email}`, {
+                    fetch(`https://used-product-laptop-market-server.vercel.app/allProduct?email=${user?.email}`, {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

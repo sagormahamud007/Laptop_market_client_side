@@ -14,7 +14,7 @@ const AllProducts = () => {
     const { data: allProduct = [], isLoading } = useQuery({
         queryKey: ['allProducts', brand_name],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/allProducts?brand_name=${brand_name}&email=${user?.email}`, {
+            const res = await fetch(`https://used-product-laptop-market-server.vercel.app/allProducts?brand_name=${brand_name}&email=${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('Access-token')}`
                 }

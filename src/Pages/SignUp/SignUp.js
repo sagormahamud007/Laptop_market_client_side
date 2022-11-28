@@ -3,31 +3,43 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../Context/ContextProvider';
+import useToken from '../../CustomHooks/useToken/useToken';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const { createUser, userName, googleSign } = useContext(AuthContext)
+    const [userEmail, setUserEmail] = useState('')
+    const [token] = useToken(userEmail)
+    const [error, setError] = useState('')
     const navigate = useNavigate()
     const location = useLocation()
-    const { createUser, userName, googleSign } = useContext(AuthContext)
-    const [error, setError] = useState('')
     const from = location.state?.from?.pathname || '/';
+
+
+    if (token) {
+        navigate(from, { replace: true });
+    }
+
 
     const handleSignUp = (data) => {
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
+                console.log(user)
                 const userInfo = {
                     displayName: data.name
                 }
                 userName(userInfo)
                     .then(() => {
                         storeUserDB(data.name, data.email, data.role)
+                        toast.success('Signup Complete')
+                        navigate('/')
                     })
                     .catch(err => console.error(err))
             })
 
             .catch(error => {
-                const errorCode = error.code;
                 const errorMessage = error.message;
                 setError(errorMessage)
             })
@@ -35,7 +47,7 @@ const SignUp = () => {
 
     const storeUserDB = (name, email, role) => {
         const user = { name, email, role };
-        fetch(`http://localhost:5000/users`, {
+        fetch(`https://used-product-laptop-market-server.vercel.app/users`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -45,8 +57,7 @@ const SignUp = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.acknowledged) {
-                    navigate(from, { replace: true });
-                    toast.success('User Create Successfully');
+                    setUserEmail(email)
                 }
 
             })

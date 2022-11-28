@@ -1,11 +1,11 @@
 import { RouterProvider } from 'react-router-dom';
 import './App.css';
 import { router } from './Routes/Routes/Routes';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import { useEffect } from 'react';
+// import AOS from 'aos';
+// import 'aos/dist/aos.css';
+// import { useEffect } from 'react';
 
 function App() {
   // useEffect(() => {

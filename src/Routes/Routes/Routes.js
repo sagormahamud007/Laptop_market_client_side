@@ -7,25 +7,26 @@ import MyOrders from "../../DashboardLayout/My orders/MyOrders";
 import MyProduct from "../../DashboardLayout/myProduct/MyProduct";
 import Main from "../../Layout/Main";
 import ErrorPage from "../../Pages/404Page/ErrorPage";
+
 import AllProducts from "../../Pages/AllProducts/AllProducts";
 import Blog from "../../Pages/Blog/Blog";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import SignUp from "../../Pages/SignUp/SignUp";
+import PrivateRouter from "../../PrivateRouter/PrivateRouter";
+
 
 export const router = createBrowserRouter([
     {
         path: '/',
+        errorElement: <ErrorPage></ErrorPage>,
         element: <Main></Main>,
         children: [
             {
                 path: '/',
                 element: <Home></Home>
             },
-            {
-                path: '/*',
-                element: <ErrorPage></ErrorPage>
-            },
+
             {
                 path: '/signIn',
                 element: <Login></Login>
@@ -40,23 +41,21 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/categories/:id',
-                element: <AllProducts></AllProducts>,
-                loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.id}`)
+                element: <PrivateRouter><AllProducts></AllProducts></PrivateRouter>,
+                loader: ({ params }) => fetch(`https://used-product-laptop-market-server.vercel.app/category/${params.id}`)
             }
         ]
     },
     {
         path: '/dashboard',
-        element: <DashbordLayout></DashbordLayout>,
+        errorElement: <ErrorPage></ErrorPage>,
+        element: <PrivateRouter><DashbordLayout></DashbordLayout></PrivateRouter>,
         children: [
             {
                 path: '/dashboard',
                 element: <MyOrders></MyOrders>
             },
-            {
-                path: '/dashboard/*',
-                element: <ErrorPage></ErrorPage>
-            },
+
             {
                 path: '/dashboard/myProduct',
                 element: <MyProduct></MyProduct>
@@ -73,15 +72,6 @@ export const router = createBrowserRouter([
                 path: '/dashboard/allBayer',
                 element: <AllBayer></AllBayer>
             }
-            // {
-            //     path: '/dashboard/manageDoctors',
-            //     element: <AdminRouter><ManageDoctors></ManageDoctors></AdminRouter>
-            // },
-            // {
-            //     path: '/dashboard/payment/:id',
-            //     element: <AdminRouter><Payment></Payment></AdminRouter>,
-            //     loader: ({ params }) => fetch(`http://localhost:5000/bookings/${params.id}`)
-            // },
         ]
     }
 ])
